@@ -1,12 +1,11 @@
 #!/bin/sh
-devicename="/dev/sda"
-username="user"
-hostname="host"
-timezone="/usr/share/zoneinfo/America/New_York"
-script_source="https://raw.githubusercontent.com/pfrendl/arch-install/main"
+device=/dev/sda
+user=user
+host=host
+timezone=/usr/share/zoneinfo/America/New_York
 
-boot_partition="${devicename}1"
-root_partition="${devicename}2"
+boot_partition="${device}1"
+root_partition="${device}2"
 
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
@@ -17,9 +16,9 @@ fi
 
 # partition disk
 umount -R /mnt
-sfdisk -w always -W always $devicename << EOF
+sfdisk -w always -W always $device << EOF
 label: dos
--,128MiB,83,*
+-,256MiB,83,*
 -,     -,83,-
 EOF
 
@@ -42,18 +41,15 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cd /mnt
 
 cat > config << EOF
-devicename=$devicename
-username=$username
-hostname=$hostname
+device=$device
+user=$user
+host=$host
 timezone=$timezone
 EOF
 
-curl -O "$script_source/configure_{root,user}.sh"
-chmod +x configure_{root,user}.sh
-
-arch-chroot /mnt ./configure_root.sh
-arch-chroot /mnt su $username -c ./configure_user.sh
-
-rm config configure_{root,user}.sh
+curl -O https://raw.githubusercontent.com/pfrendl/arch-install/main/configure_system.sh
+chmod +x configure_system.sh
+arch-chroot /mnt ./configure_system.sh
+rm config configure_system.sh
 
 cd ..
