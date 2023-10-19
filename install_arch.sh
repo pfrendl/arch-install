@@ -4,8 +4,9 @@ user=user
 host=host
 timezone=/usr/share/zoneinfo/America/New_York
 
-boot_partition="${device}1"
-root_partition="${device}2"
+letter_p=$([[ $device =~ ^.*[0-9]$ ]] && echo p || echo "")
+efi_system_partition="${device}${letter_p}1"
+root_partition="${device}${letter_p}2"
 
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
@@ -16,20 +17,19 @@ fi
 
 # partition disk
 umount -R /mnt
-sfdisk -w always -W always $device << EOF
-label: dos
--,256MiB,83,*
--,     -,83,-
-EOF
+wipefs -af -t gpt $device
+sgdisk -o $device
+sgdisk -n 1::+512M -t 1:EF00 $device
+sgdisk -n 2::0 -t 2:8300 $device
 
 # format partitions
-mkfs.ext4 $boot_partition
-mkfs.ext4 $root_partition
+mkfs.fat -F 32 $efi_system_partition
+mkfs.ext4 -F $root_partition
 
 # mount file systems
 mount $root_partition /mnt
 mkdir /mnt/boot
-mount $boot_partition /mnt/boot
+mount $efi_system_partition /mnt/boot
 
 # installation
 pacstrap /mnt base base-devel linux linux-firmware
@@ -51,5 +51,3 @@ curl -O https://raw.githubusercontent.com/pfrendl/arch-install/main/configure_sy
 chmod +x configure_system.sh
 arch-chroot /mnt ./configure_system.sh
 rm config configure_system.sh
-
-cd ..
