@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 device=/dev/sda
 user=user
 host=host
