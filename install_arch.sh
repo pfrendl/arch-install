@@ -4,9 +4,6 @@ user=user
 host=host
 timezone=/usr/share/zoneinfo/America/New_York
 
-letter_p=$([[ $device =~ ^.*[0-9]$ ]] && echo p || echo "")
-efi_system_partition="${device}${letter_p}1"
-root_partition="${device}${letter_p}2"
 
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
@@ -21,6 +18,7 @@ wipefs -af -t gpt $device
 sgdisk -o $device
 sgdisk -n 1::+512M -t 1:EF00 $device
 sgdisk -n 2::0 -t 2:8300 $device
+read -d '\n' efi_system_partition root_partition <<<$(ls $device?*)
 
 # format partitions
 mkfs.fat -F 32 $efi_system_partition
