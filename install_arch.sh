@@ -4,7 +4,6 @@ user=user
 host=host
 timezone=/usr/share/zoneinfo/America/New_York
 
-
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
 if [ $? -ne 0 ]; then

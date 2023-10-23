@@ -40,7 +40,7 @@ pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xbindkeys
 # fonts ~ inconsolata: xresources, fontawesome: icons, noto-fonts: unicode & emoji
 pacman --noconfirm -S ttf-inconsolata ttf-font-awesome noto-fonts noto-fonts-emoji noto-fonts-cjk
 # multimedia
-pacman --noconfirm -S xwallpaper nsxiv pulseaudio ffmpeg yt-dlp mpv
+pacman --noconfirm -S xwallpaper nsxiv pipewire pipewire-audio wireplumber pipewire-pulse pipewire-jack ffmpeg yt-dlp mpv
 # graphics driver
 pacman --noconfirm -S nvidia
 # misc
