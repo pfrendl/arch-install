@@ -35,8 +35,8 @@ pacman --noconfirm -S grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# dwm dependencies and xbindkeys for audio keys
-pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xbindkeys
+# dwm dependencies, status bar updates and key events
+pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xorg-xsetroot xbindkeys
 # fonts ~ inconsolata: xresources, fontawesome: icons, noto-fonts: unicode & emoji
 pacman --noconfirm -S ttf-inconsolata ttf-font-awesome noto-fonts noto-fonts-emoji noto-fonts-cjk
 # multimedia
@@ -57,7 +57,7 @@ suckless_repos=(
     https://github.com/pfrendl/dwm.git
     https://github.com/pfrendl/st.git
     https://github.com/pfrendl/dmenu.git
-    https://github.com/pfrendl/dwmblocks.git
+    https://github.com/pfrendl/mustat.git
 )
 sudo -u $user mkdir /home/$user/suckless && cd $_
 for repo in "${suckless_repos[@]}"
