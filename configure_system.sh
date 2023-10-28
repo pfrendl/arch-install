@@ -41,8 +41,8 @@ pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xorg-xsetroot xb
 pacman --noconfirm -S ttf-inconsolata ttf-font-awesome noto-fonts noto-fonts-emoji noto-fonts-cjk
 # multimedia
 pacman --noconfirm -S xwallpaper nsxiv pipewire pipewire-audio wireplumber pipewire-pulse pipewire-jack ffmpeg yt-dlp mpv
-# graphics driver
-pacman --noconfirm -S nvidia
+# graphics driver, video card monitoring
+pacman --noconfirm -S nvidia nvtop
 # misc
 pacman --noconfirm -S vim less git neofetch man
 
