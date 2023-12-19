@@ -70,8 +70,16 @@ do
 done
 
 # vim plugins
-sudo -u $user mkdir -p /home/$user/.vim/pack/default/start && cd $_
-sudo -u $user git clone https://github.com/morhetz/gruvbox
+vim_plugin_repos=(
+    https://github.com/morhetz/gruvbox.git
+    https://github.com/dense-analysis/ale.git
+    https://github.com/davidhalter/jedi-vim.git
+)
+sudo -u $user mkdir -p /home/$user/.vim/pack/git-plugins/start && cd $_
+for repo in "${vim_plugin_repos[@]}"
+do
+    sudo -u $user git clone $repo
+done
 
 # dotfiles
 cd /home/$user
