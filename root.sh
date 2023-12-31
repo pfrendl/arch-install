@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./config
+source /arch-install/config
 
 getpasswd() {
     while
@@ -43,46 +43,26 @@ pacman --noconfirm -S ttf-inconsolata ttf-font-awesome noto-fonts noto-fonts-emo
 pacman --noconfirm -S xwallpaper nsxiv pipewire pipewire-audio wireplumber pipewire-pulse pipewire-jack ffmpeg yt-dlp mpv
 # graphics driver, video card monitoring
 pacman --noconfirm -S nvidia nvtop
+# code editor
+pacman --noconfirm -S kakoune kak-lsp
 # misc
-pacman --noconfirm -S vim less git neofetch man
+pacman --noconfirm -S less git neofetch man
 
-# browser
-sudo -u $user mkdir /home/$user/aur && cd $_
-sudo -u $user git clone https://aur.archlinux.org/brave-bin.git
-cd brave-bin
-sudo -u $user makepkg -si --noconfirm
+# user configuration
+sudo -u $user /arch-install/user.sh
 
-# suckless software
-suckless_repos=(
-    https://github.com/pfrendl/dwm.git
-    https://github.com/pfrendl/st.git
-    https://github.com/pfrendl/dmenu.git
-    https://github.com/pfrendl/mustat.git
-)
-sudo -u $user mkdir /home/$user/suckless && cd $_
+# install aur packages
+aur_repos=$(find $aur_dir -mindepth 1 -maxdepth 1)
+for repo in "${aur_repos[@]}"
+do
+    cd $repo
+    makepkg -si --noconfirm
+done
+
+# install suckless packages
+suckless_repos=$(find $suckless_dir -mindepth 1 -maxdepth 1)
 for repo in "${suckless_repos[@]}"
 do
-    sudo -u $user git clone $repo
-    program=$(basename $repo .git)
-    cd $program
+    cd $repo
     make clean install
-    cd ..
 done
-
-# vim plugins
-vim_plugin_repos=(
-    https://github.com/morhetz/gruvbox.git
-    https://github.com/dense-analysis/ale.git
-    https://github.com/davidhalter/jedi-vim.git
-)
-sudo -u $user mkdir -p /home/$user/.vim/pack/git-plugins/start && cd $_
-for repo in "${vim_plugin_repos[@]}"
-do
-    sudo -u $user git clone $repo
-done
-
-# dotfiles
-cd /home/$user
-sudo -u $user git clone https://github.com/pfrendl/arch-dotfiles.git
-cd arch-dotfiles
-sudo -u $user find -name ".*" -not -path . -not -path ./.git | sudo -u $user xargs cp -r -t /home/$user

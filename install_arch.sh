@@ -1,8 +1,5 @@
 #!/bin/bash
-device=/dev/sda
-user=user
-host=host
-timezone=/usr/share/zoneinfo/America/New_York
+source /arch-install/config
 
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
@@ -36,15 +33,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # configure root and user
 cd /mnt
-
-cat > config << EOF
-device=$device
-user=$user
-host=$host
-timezone=$timezone
-EOF
-
-curl -O https://raw.githubusercontent.com/pfrendl/arch-install/main/configure_system.sh
-chmod +x configure_system.sh
-arch-chroot /mnt ./configure_system.sh
-rm config configure_system.sh
+cp -r /arch-install ./arch-install
+chmod +x ./arch-install/*.sh
+arch-chroot /mnt /arch-install/root.sh
+rm -r ./arch-install
