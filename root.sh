@@ -48,6 +48,9 @@ pacman --noconfirm -S kakoune kak-lsp
 # misc
 pacman --noconfirm -S less git neofetch man
 
+# nvidia automatic xorg configuration + fix screen tearing
+nvidia-xconfig --force-full-composition-pipeline on
+
 # user configuration
 sudo -u $user /arch-install/user.sh
 
