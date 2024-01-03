@@ -9,6 +9,9 @@ mkdir $aur_dir && cd $_
 for repo in "${aur_repos[@]}"
 do
     git clone $repo
+    program=$(basename $repo .git)
+    cd $program
+    makepkg -si --noconfirm
 done
 
 # download suckless repositories
@@ -25,7 +28,7 @@ do
 done
 
 # dotfiles
-cd
+cd ~
 git clone https://github.com/pfrendl/arch-dotfiles.git
 cd arch-dotfiles
 find -name ".*" -not -path . -not -path ./.git | xargs cp -r -t ~

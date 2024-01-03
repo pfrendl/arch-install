@@ -54,17 +54,9 @@ nvidia-xconfig --force-full-composition-pipeline on
 # user configuration
 sudo -u $user /arch-install/user.sh
 
-# install aur packages
-aur_repos=$(find $aur_dir -mindepth 1 -maxdepth 1)
-for repo in "${aur_repos[@]}"
-do
-    cd $repo
-    makepkg -si --noconfirm
-done
-
 # install suckless packages
 suckless_repos=$(find $suckless_dir -mindepth 1 -maxdepth 1)
-for repo in "${suckless_repos[@]}"
+for repo in $suckless_repos
 do
     cd $repo
     make clean install

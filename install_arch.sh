@@ -1,5 +1,5 @@
 #!/bin/bash
-source /arch-install/config
+source ./arch-install/config
 
 # make sure there is internet
 ping -q -c 1 archlinux.org > /dev/null
@@ -32,8 +32,7 @@ pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # configure root and user
-cd /mnt
-cp -r /arch-install ./arch-install
-chmod +x ./arch-install/*.sh
+cp -r ./arch-install /mnt/arch-install
+chmod +x /mnt/arch-install/*.sh
 arch-chroot /mnt /arch-install/root.sh
-rm -r ./arch-install
+# rm -r /mnt/arch-install
