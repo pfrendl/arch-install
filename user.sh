@@ -34,5 +34,5 @@ cd arch-dotfiles
 find -name ".*" -not -path . -not -path ./.git | xargs cp -r -t ~
 
 # python development environment
-python -m venv ~/py311_devenv && source $_/bin/activate
+python -m venv $pyenv_dir && source $_/bin/activate
 pip install python-lsp-server[all] isort black

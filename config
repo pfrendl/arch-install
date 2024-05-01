@@ -7,4 +7,4 @@ timezone=/usr/share/zoneinfo/America/New_York
 
 aur_dir=/home/$user/aur
 suckless_dir=/home/$user/suckless
-pyenv_dir=/home/$user/py311_devenv
+pyenv_dir=/home/$user/py312_devenv
