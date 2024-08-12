@@ -35,4 +35,4 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cp -r ./arch-install /mnt/arch-install
 chmod +x /mnt/arch-install/*.sh
 arch-chroot /mnt /arch-install/root.sh
-# rm -r /mnt/arch-install
+rm -r /mnt/arch-install
