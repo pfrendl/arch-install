@@ -35,8 +35,8 @@ pacman --noconfirm -S grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# dwm dependencies, status bar updates and key events
-pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xorg-xsetroot sxhkd
+# window manager, status bar updates, and key events
+pacman --noconfirm -S xorg-server xorg-xinit libxft libxinerama xorg-xsetroot sxhkd bspwm
 # fonts ~ inconsolata: xresources, fontawesome: icons, noto-fonts: unicode & emoji
 pacman --noconfirm -S ttf-inconsolata ttf-font-awesome noto-fonts noto-fonts-emoji noto-fonts-cjk
 # multimedia

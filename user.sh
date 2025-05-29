@@ -16,7 +16,6 @@ done
 
 # download suckless repositories
 suckless_repos=(
-    https://github.com/pfrendl/dwm.git
     https://github.com/pfrendl/st.git
     https://github.com/pfrendl/dmenu.git
     https://github.com/pfrendl/mustat.git
